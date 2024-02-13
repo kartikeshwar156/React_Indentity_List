@@ -1,12 +1,11 @@
-import Message from "./Message";
+import ListGroup from "./Components/ListGroup";
 
 function App() {
   return (
     <>
       <div>
-        <Message></Message>
+        <ListGroup></ListGroup>
       </div>
-      <h1>woow now what!</h1>
     </>
   );
 }
