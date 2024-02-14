@@ -1,17 +1,20 @@
-import ListGroup from "./Components/ListGroup";
+import Alert from "./Components/Alert";
 
 // Mosh wrote the list and onselectitem function inside the component function.
 let items = ["nda", "pnb", "nzm", "tpj", "hyd"];
 
 function handleSelectitem(item: string) {
-  console.log(item)
+  console.log(item);
 }
 
 function App() {
   return (
     <>
       <div>
-        <ListGroup items={items} heading="City List" onSelectitem={handleSelectitem}></ListGroup>
+        <Alert>
+          <p>hello now world</p>
+          <li>now what?</li>
+        </Alert>
       </div>
     </>
   );
