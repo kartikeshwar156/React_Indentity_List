@@ -1,20 +1,24 @@
 import Button from "./Components/Button";
+import Alert from "./Components/Alert";
+import { useState } from "react";
 // Mosh wrote the list and onselectitem function inside the component function.
-let items = ["nda", "pnb", "nzm", "tpj", "hyd"];
-
-function handleSelectitem(item: string) {
-  console.log(item);
-}
-
-function print_console(){
-  console.log("clicked the button")
-}
 
 function App() {
+  let [Alertvisibility, setAlertvisibility] = useState(false);
+
+  function print_alert() {
+    setAlertvisibility(true);
+  }
+
+  function onClose(){
+    setAlertvisibility(false);
+  }
+
   return (
     <>
       <div>
-        <Button color="danger" onClick={print_console}>
+        {Alertvisibility ? <Alert onClose={onClose}>Alert Message !!!! </Alert> : null}
+        <Button color="danger" onClick={print_alert}>
           button first mine
         </Button>
       </div>
