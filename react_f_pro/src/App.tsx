@@ -1,5 +1,4 @@
-import Alert from "./Components/Alert";
-
+import Button from "./Components/Button";
 // Mosh wrote the list and onselectitem function inside the component function.
 let items = ["nda", "pnb", "nzm", "tpj", "hyd"];
 
@@ -7,14 +6,17 @@ function handleSelectitem(item: string) {
   console.log(item);
 }
 
+function print_console(){
+  console.log("clicked the button")
+}
+
 function App() {
   return (
     <>
       <div>
-        <Alert>
-          <p>hello now world</p>
-          <li>now what?</li>
-        </Alert>
+        <Button color="danger" onClick={print_console}>
+          button first mine
+        </Button>
       </div>
     </>
   );

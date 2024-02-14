@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 
 interface props {
 	children: ReactNode;
+	onClick: () => void;
 }
 
 function Alert({children}: props){
