@@ -2,6 +2,7 @@ import Button from "./Components/Button";
 import Alert from "./Components/Alert";
 import { useState } from "react";
 import Like from "./Components/Like";
+import Message from "./Components/Message";
 // Mosh wrote the list and onselectitem function inside the component function.
 
 function App() {
@@ -18,8 +19,9 @@ function App() {
   return (
     <>
       <Like></Like>
-       
+      <Message></Message>
       <div>
+        
         
         {Alertvisibility ? <Alert onClose={onClose}>Alert Message !!!! </Alert> : null}
         <Button color="danger" onClick={print_alert}>
