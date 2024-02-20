@@ -1,31 +1,30 @@
 import Button from "./Components/Button";
 import Alert from "./Components/Alert";
 import { useState } from "react";
-import Like from "./Components/Like";
+import Message from "./Components/Message";
 // Mosh wrote the list and onselectitem function inside the component function.
 
 function App() {
-  let [Alertvisibility, setAlertvisibility] = useState(false);
+  let [game, setGame]=useState({
+    id: 1,
+    player:{
+      name: "Kartik",
+    }
+  })
 
-  function print_alert() {
-    setAlertvisibility(true);
+  function handleClick(){
+    setGame({...game, player: {name: "Bobo"}})
   }
 
-  function onClose(){
-    setAlertvisibility(false);
+  function print_values(){
+    console.log(game.player.name)
   }
 
   return (
     <>
-      <Like></Like>
-       
-      <div>
-        
-        {Alertvisibility ? <Alert onClose={onClose}>Alert Message !!!! </Alert> : null}
-        <Button color="danger" onClick={print_alert}>
-          button first mine
-        </Button>
-      </div>
+      <Message></Message>
+      <Message></Message>
+      <Message></Message>
     </>
   );
 }
