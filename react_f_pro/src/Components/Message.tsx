@@ -1,11 +1,15 @@
-let count = 0;
+
+
 function Message() {
 	// let count = 0;
+	let count = 0;
 
 	function printcount() {
 		count++;
 		console.log(count)
 	}
+
+	
 
 	return (
 		<>

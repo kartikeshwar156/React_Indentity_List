@@ -1,5 +1,5 @@
 import Button from "./Components/Button";
-import Alert from "./Components/Alert";
+import Like from "./Components/Like";
 import { useState } from "react";
 import Message from "./Components/Message";
 // Mosh wrote the list and onselectitem function inside the component function.
@@ -25,6 +25,7 @@ function App() {
       <Message></Message>
       <Message></Message>
       <Message></Message>
+      
     </>
   );
 }
