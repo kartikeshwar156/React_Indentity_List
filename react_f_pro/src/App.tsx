@@ -1,33 +1,22 @@
-import Button from "./Components/Button";
-import Alert from "./Components/Alert";
 import { useState } from "react";
-import Like from "./Components/Like";
-import Message from "./Components/Message";
-// Mosh wrote the list and onselectitem function inside the component function.
+import NavBar from "./Components/NavBar";
+import Cart from "./Components/Cart";
+
+
 
 function App() {
-  let [Alertvisibility, setAlertvisibility] = useState(false);
+  
+const [cartItems, setCartItems]=useState(["product1", "product2"])
 
-  function print_alert() {
-    setAlertvisibility(true);
-  }
-
-  function onClose(){
-    setAlertvisibility(false);
-  }
+function handle_Onclear()
+{
+  setCartItems([])
+}
 
   return (
     <>
-      <Like></Like>
-      <Message></Message>
-      <div>
-        
-        
-        {Alertvisibility ? <Alert onClose={onClose}>Alert Message !!!! </Alert> : null}
-        <Button color="danger" onClick={print_alert}>
-          button first mine
-        </Button>
-      </div>
+      <NavBar cartItemsCount={cartItems.length}></NavBar>
+      <Cart cartItems={cartItems} onClear={() => handle_Onclear()}></Cart>
     </>
   );
 }
