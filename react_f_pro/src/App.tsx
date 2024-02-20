@@ -1,23 +1,18 @@
 import { useState } from "react";
-import NavBar from "./Components/NavBar";
-import Cart from "./Components/Cart";
-
+import ExpandableText from "./Components/ExpandableText";
 
 
 function App() {
-  
-const [cartItems, setCartItems]=useState(["product1", "product2"])
 
-function handle_Onclear()
-{
-  setCartItems([])
-}
+  
+
+  let text_given="Lorem ipsum dolor sit amet consectetur adipisicing elit. Non vel modi alias ullam repellat, mollitia natus laudantium delectus maiores neque voluptatem, vitae consequuntur? Sed doloremque, dolorem repellat necessitatibus ex earum."
 
   return (
-    <>
-      <NavBar cartItemsCount={cartItems.length}></NavBar>
-      <Cart cartItems={cartItems} onClear={() => handle_Onclear()}></Cart>
-    </>
+  <>
+ <ExpandableText text_given={text_given} maxChar={20}></ExpandableText>
+
+  </>
   );
 }
 
