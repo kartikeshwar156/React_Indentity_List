@@ -1,18 +1,13 @@
-import { useState } from "react";
-import ExpandableText from "./Components/ExpandableText";
-
+import FormComponent from "./Components/FormComponent";
+import Form from "./Components/Form";
 
 function App() {
-
   
 
-  let text_given="Lorem ipsum dolor sit amet consectetur adipisicing elit. Non vel modi alias ullam repellat, mollitia natus laudantium delectus maiores neque voluptatem, vitae consequuntur? Sed doloremque, dolorem repellat necessitatibus ex earum."
-
   return (
-  <>
- <ExpandableText text_given={text_given} maxChar={20}></ExpandableText>
-
-  </>
+    <>
+      <Form/>
+    </>
   );
 }
 
