@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 
 const Form = () => {
 
-	const {register, handleSubmit}=useForm()
+	const {register, handleSubmit, formState}=useForm()
 
 // Use of below functions and useState for name, age is now
 // not needed as we are using useForms.
@@ -35,7 +35,7 @@ const Form = () => {
 		<div className="mb-3">
 			<label htmlFor="name" className="form-label">Name</label>
 			<input 
-			{...register('name')}
+			{...register('name', {required: true, minLength: 3})}
 			id="name" 
 			type="text" 
 			className="form-control" />
