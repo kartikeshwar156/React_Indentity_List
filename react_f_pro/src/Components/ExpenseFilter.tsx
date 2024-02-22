@@ -1,4 +1,5 @@
 import React from "react";
+import categories from "../Expense_tracker/Categories";
 
 interface props {
   onSelectCategory: (category: string) => void;
