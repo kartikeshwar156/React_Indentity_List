@@ -61,17 +61,35 @@ const App = () => {
     };
   }, [])
 
+  function deleteUser(info_u: User)
+  {
+    const OriginalUser=[...users];
+
+    setUsers(users.filter(cur_user => cur_user.id !== info_u.id));
+    console.log('https://jsonplaceholder.typicode.com/users/'+info_u.id)
+
+    axios.delete('https://jsonplaceholder.typicode.com/users/'+info_u.id)
+    .catch(er_obj => {
+      setErrorMessage(er_obj.message);
+      setUsers(OriginalUser);
+    });
+
+    console.log(info_u.id)
+  }
+
   return (
     <>
     {Loading && <div className="spinner-border"></div>}
     {errorMessage && <p className="text-danger">{errorMessage} !!!</p>}
 
 
-    <ul>
-      {users.map(info_u => <li key={info_u.id}>Id: {info_u.id} Name: {info_u.name} Username: {info_u.username}</li>)}
+    <ul className='list-group'>
+      {users.map(info_u => <li key={info_u.id} className='list-group-item d-flex justify-content-between'>Id: {info_u.id} Name: {info_u.name} Username: {info_u.username}  <button className="btn btn-outline-danger" onClick={()=>deleteUser(info_u)}>Delete</button></li>)}
     </ul>   
     </>
   )
 }
+
+// d-flex justify-content-between -> this is responsble for shifting delete buttons to right.
 
 export default App
