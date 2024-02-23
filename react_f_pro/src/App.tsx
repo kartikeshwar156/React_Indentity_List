@@ -13,6 +13,8 @@ const App = () => {
 
   const [errorMessage, setErrorMessage] = useState("")
 
+  const[Loading, setLoading]=useState(false)
+
   
 
   function connect(){
@@ -29,11 +31,14 @@ const App = () => {
     // AbortController should always be called in useEffect()
     const controller = new AbortController();
 
+    setLoading(true)
+
     axios
     .get<User[]>('https://jsonplaceholder.typicode.com/users', {signal: controller.signal})
     .then(response => {
       setUsers(response.data); 
       console.log(response);
+      setLoading(false);
     })// then function informs what to do after fetching
     .catch(er_obj => {
 
@@ -43,10 +48,11 @@ const App = () => {
         return;
       }
 
-      setErrorMessage(er_obj.message)
+      setErrorMessage(er_obj.message);
+      setLoading(false);
     })// catch function is to tell what to do if some eroor occurs while fetching
 
-    console.log("fetched")
+    //(--|--) setLoading(false); writing this code line here is wrong., explanation on co-pilot.
 
 
     return () => {
@@ -57,9 +63,9 @@ const App = () => {
 
   return (
     <>
+    {Loading && <div className="spinner-border"></div>}
     {errorMessage && <p className="text-danger">{errorMessage} !!!</p>}
 
-    <p>List is Below:</p>
 
     <ul>
       {users.map(info_u => <li key={info_u.id}>Id: {info_u.id} Name: {info_u.name} Username: {info_u.username}</li>)}
