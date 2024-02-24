@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 // import api_client, { CanceledError } from 'api_client'; this import is not needed because of the below statement.
-import api_client, {CanceledError} from './Services/api_client'; // this will automatically import api_client too.
+import {CanceledError} from './Services/api_client'; // this will automatically import api_client too.
 
-interface User{
-  id: number;
-  name: string;
-  username: string;
-}
+import UserService, {User} from './Services/UserSErvice';
+// in above import, class should be imported before the interface "User"
+
 
 const App = () => {
 
@@ -17,26 +15,15 @@ const App = () => {
   const[Loading, setLoading]=useState(false)
 
   
-
-  function connect(){
-		console.log("Connecting")
-	}
-
-	function Disconnect(){
-		console.log("Disconnecting")
-	}
-
   useEffect(() => {
 
-    connect();
     // AbortController should always be called in useEffect()
-    const controller = new AbortController();
+    // const controller = new AbortController();
 
     setLoading(true)
 
-    api_client
-    .get<User[]>('https://jsonplaceholder.typicode.com/users', {signal: controller.signal})
-    .then(response => {
+    const {request, cancel}=UserService.getAllUsers()
+    request.then(response => {
       setUsers(response.data); 
       console.log(response);
       setLoading(false);
@@ -57,8 +44,7 @@ const App = () => {
 
 
     return () => {
-      Disconnect();
-      controller.abort();
+      cancel();
     };
   }, [])
 
@@ -67,7 +53,7 @@ const App = () => {
     const newUser = { id: 0, name: 'Mosh', username: "Mosh1Now"};
     setUsers([... users, newUser]);
     
-    api_client.post('/users', newUser)
+    UserService.AddMyUser(newUser)
     .then(res => setUsers( [... users, res.data]))
     .catch(err_obj => {
       setErrorMessage(err_obj.message);
@@ -83,8 +69,7 @@ const App = () => {
     setUsers(users.map(cur_user => info_u.id===cur_user.id ? updatedUser : cur_user))
      
     
-    api_client
-    .patch('/users/'+ info_u.id, updatedUser)
+    UserService.UpdateMyUser(info_u.id, updatedUser)
     .catch(err => {
       setErrorMessage(err.message);
       setUsers(originalUsers)
@@ -97,9 +82,9 @@ const App = () => {
     const OriginalUser=[...users];
 
     setUsers(users.filter(cur_user => cur_user.id !== info_u.id));
-    console.log('https://jsonplaceholder.typicode.com/users/'+info_u.id)
+    // console.log('https://jsonplaceholder.typicode.com/users/'+info_u.id)
 
-    api_client.delete('/users/'+info_u.id)
+    UserService.DeleteMyUser(info_u.id)
     .catch(er_obj => {
       setErrorMessage(er_obj.message);
       setUsers(OriginalUser);
@@ -113,8 +98,6 @@ const App = () => {
     {Loading && <div className="spinner-border"></div>}
     {errorMessage && <p className="text-danger">{errorMessage} !!!</p>}
     <button className="btn btn-primary mb-3" onClick={addUser}>Add</button>
-
-    
 
     <ul className='list-group'>
       {users.map(info_u => <li key={info_u.id} className='list-group-item d-flex justify-content-between'>Id: {info_u.id} Name: {info_u.name} Username: {info_u.username} 
