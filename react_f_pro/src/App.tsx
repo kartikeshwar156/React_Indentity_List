@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import axios, { CanceledError } from 'axios';
+// import api_client, { CanceledError } from 'api_client'; this import is not needed because of the below statement.
+import api_client, {CanceledError} from './Services/api_client'; // this will automatically import api_client too.
 
 interface User{
   id: number;
@@ -33,7 +34,7 @@ const App = () => {
 
     setLoading(true)
 
-    axios
+    api_client
     .get<User[]>('https://jsonplaceholder.typicode.com/users', {signal: controller.signal})
     .then(response => {
       setUsers(response.data); 
@@ -66,7 +67,7 @@ const App = () => {
     const newUser = { id: 0, name: 'Mosh', username: "Mosh1Now"};
     setUsers([... users, newUser]);
     
-    axios.post('https://jsonplaceholder.typicode.com/users', newUser)
+    api_client.post('/users', newUser)
     .then(res => setUsers( [... users, res.data]))
     .catch(err_obj => {
       setErrorMessage(err_obj.message);
@@ -82,8 +83,8 @@ const App = () => {
     setUsers(users.map(cur_user => info_u.id===cur_user.id ? updatedUser : cur_user))
      
     
-    axios
-    .patch('https://jsonplaceholder.typicode.com/users/'+ info_u.id, updatedUser)
+    api_client
+    .patch('/users/'+ info_u.id, updatedUser)
     .catch(err => {
       setErrorMessage(err.message);
       setUsers(originalUsers)
@@ -98,7 +99,7 @@ const App = () => {
     setUsers(users.filter(cur_user => cur_user.id !== info_u.id));
     console.log('https://jsonplaceholder.typicode.com/users/'+info_u.id)
 
-    axios.delete('https://jsonplaceholder.typicode.com/users/'+info_u.id)
+    api_client.delete('/users/'+info_u.id)
     .catch(er_obj => {
       setErrorMessage(er_obj.message);
       setUsers(OriginalUser);
